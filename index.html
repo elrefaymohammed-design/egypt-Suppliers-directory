@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Egypt Supplier Directory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a working directory — status strip, search, filter bar, then supplier rows grouped by category; rows collapse to cards on phones. Bilingual: Arabic (RTL) default, English toggle. */
+:root {
+  --bg: #f3f5f4;
+  --surface: #ffffff;
+  --ink: #16201e;
+  --muted: #5b6a66;
+  --line: #d9e0dd;
+  --accent: #0d6b5f;
+  --accent-soft: #e0f0ec;
+  --ok: #1f7a3a;
+  --ok-soft: #e3f3e7;
+  --warn: #9a5b00;
+  --warn-soft: #fbefd9;
+  --none: #7a7f86;
+  --none-soft: #eceef0;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+:root[lang="ar"] {
+  --f-display: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  --f-body: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1514; --surface: #17201e; --ink: #e5ece9; --muted: #95a6a1; --line: #2a3633;
+  --accent: #4cc1ae; --accent-soft: #163631; --ok: #6fd08a; --ok-soft: #173322;
+  --warn: #f0b860; --warn-soft: #3a2b12; --none: #a3a9b0; --none-soft: #252b2d; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1514; --surface: #17201e; --ink: #e5ece9; --muted: #95a6a1; --line: #2a3633;
+  --accent: #4cc1ae; --accent-soft: #163631; --ok: #6fd08a; --ok-soft: #173322;
+  --warn: #f0b860; --warn-soft: #3a2b12; --none: #a3a9b0; --none-soft: #252b2d; color-scheme: dark; }
+
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; display: grid; gap: 22px; }
+h1 { font-family: var(--f-display); font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0; text-wrap: balance; }
+.lede { color: var(--muted); margin: 6px 0 0; max-width: 65ch; }
+.head { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; justify-content: space-between; }
+.headside { display: grid; gap: 8px; justify-items: end; }
+.fresh { font-size: 13px; color: var(--muted); display: grid; gap: 2px; text-align: end; }
+.fresh strong { color: var(--ink); font-weight: 600; }
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); margin-inline-end: 6px; vertical-align: 1px; }
+.dot.stale { background: var(--warn); }
+.lang { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.lang button { border: 0; background: transparent; color: var(--ink); font: 600 13px var(--f-body); padding: 6px 12px; cursor: pointer; }
+.lang button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
+
+.strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.strip > div { background: var(--surface); padding: 12px 14px; }
+.strip b { display: block; font-family: var(--f-display); font-size: 24px; font-variant-numeric: tabular-nums; }
+.strip span { font-size: 12px; color: var(--muted); }
+:root[lang="en"] .strip span { text-transform: uppercase; letter-spacing: .06em; }
+
+.bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: transparent; color: var(--ink); font: 500 14px var(--f-body); padding: 8px 14px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--surface); }
+select { font: 14px var(--f-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; min-width: 0; max-width: 100%; }
+.searchbox { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding-block: 4px; padding-inline: 14px 6px; color: var(--accent); }
+.searchbox:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.searchbox svg { flex: none; }
+.searchbox input { flex: 1; border: 0; background: transparent; color: var(--ink); font: 16px var(--f-body); padding: 10px 0; outline: none; min-width: 0; }
+.searchbox .clear { font: 500 13px var(--f-body); border: 0; background: var(--accent-soft); color: var(--accent); border-radius: 8px; padding: 6px 10px; cursor: pointer; }
+label.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; color: var(--muted); }
+button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.group { display: grid; gap: 8px; }
+.group h2 { font-family: var(--f-display); font-size: 18px; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; align-items: baseline; }
+.group h2 small { font: 500 12px var(--f-body); color: var(--muted); }
+.rows { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.row { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.5fr) minmax(0, 1.6fr) minmax(0, 2fr); gap: 16px; padding: 14px 16px; border-top: 1px solid var(--line); }
+.row:first-child { border-top: 0; }
+.row > div { min-width: 0; }
+.name { font-weight: 600; }
+.alt { font-size: 12px; color: var(--muted); }
+.sub { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+.k { font-size: 11px; color: var(--muted); display: none; }
+.type { display: inline-block; font-size: 12px; font-weight: 500; padding: 1px 8px; border-radius: 99px; background: var(--accent-soft); color: var(--accent); margin-top: 4px; }
+.phone { font-family: var(--f-mono); font-variant-numeric: tabular-nums; font-size: 14px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; direction: ltr; justify-content: flex-end; }
+:root[lang="en"] .phone { justify-content: flex-start; }
+.copy { font: 500 12px var(--f-body); border: 1px solid var(--line); background: transparent; color: var(--accent); border-radius: 6px; padding: 2px 8px; cursor: pointer; }
+.pill { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 4px; margin-top: 4px; }
+.pill.official { background: var(--ok-soft); color: var(--ok); }
+.pill.directory { background: var(--warn-soft); color: var(--warn); }
+.pill.missing { background: var(--none-soft); color: var(--none); }
+a { color: var(--accent); }
+.ltr { direction: ltr; unicode-bidi: isolate; }
+.empty { background: var(--surface); border: 1px dashed var(--line); border-radius: 10px; padding: 28px; color: var(--muted); }
+.partners { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.k2 { font-size: 11px; color: var(--muted); margin-inline-end: 2px; }
+.chip { font-size: 12px; border: 1px solid var(--line); border-radius: 99px; padding: 0 8px; }
+.br { grid-column: 1 / -1; font-size: 14px; }
+.br summary { cursor: pointer; color: var(--accent); font-weight: 600; width: max-content; }
+.br ul { margin: 8px 0 0; padding: 10px 14px; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px 20px; background: var(--bg); border-radius: 8px; }
+.br li { min-width: 0; overflow-wrap: anywhere; }
+.br .phone { display: inline-flex; margin-inline-start: 4px; }
+.note { font-size: 13px; color: var(--muted); max-width: 80ch; }
+.printbtn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--accent); font: 600 13px var(--f-body); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+.printbtn:hover { border-color: var(--accent); }
+.printgrp { display: flex; flex-wrap: wrap; gap: 6px; }
+[hidden] { display: none !important; }
+.siterow { margin: 4px 0 2px; }
+.fhead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; }
+.ctry { font-size: 12.5px; color: var(--muted); }
+.eglist { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.eglist li { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.eglink { border: 0; background: none; padding: 0; color: var(--accent); font: 600 13.5px var(--f-body); cursor: pointer; text-align: start; text-decoration: underline; text-underline-offset: 3px; }
+.role { font-size: 11.5px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; }
+.sitebtn { display: inline-flex; align-items: center; gap: 4px; font: 600 12.5px var(--f-body); color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 999px; padding: 3px 11px; text-decoration: none; }
+.sitebtn:hover { filter: brightness(1.05); text-decoration: underline; }
+.sitebtn.ghost { background: transparent; border-style: dashed; color: var(--muted); border-color: var(--line); font-weight: 500; }
+.makes { margin: -4px 0 10px; font-size: 13px; color: var(--muted); }
+.makes b { color: var(--accent); font-weight: 600; }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); }
+.tabs button { border: 0; background: transparent; color: var(--muted); font: 600 15px var(--f-body); padding: 10px 14px; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; }
+.tabs button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); }
+.mgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; margin-top: 12px; }
+.mcard { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.mcard h3 { font-family: var(--f-display); font-size: 17px; margin: 0; }
+.mcard .proc { font-size: 13px; color: var(--muted); }
+.mcard .chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.mcard .chip { background: var(--bg); }
+.mcard .find { justify-self: start; border: 1px solid var(--accent); background: var(--accent-soft); color: var(--accent); font: 600 13px var(--f-body); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+.printmsg { font-size: 12px; color: var(--muted); }
+.byline { font-size: 14px; color: var(--muted); margin: 4px 0 0; }
+.byline strong { color: var(--accent); font-weight: 600; }
+.sign { border-top: 1px solid var(--line); padding-top: 14px; font-size: 14px; color: var(--muted); }
+.sign strong { color: var(--ink); font-family: var(--f-display); font-size: 16px; }
+
+@media (max-width: 760px) {
+  .row { grid-template-columns: 1fr; gap: 8px; }
+  .k { display: block; }
+  .fresh { text-align: start; }
+  .headside { justify-items: start; }
+  .phone, :root[lang="en"] .phone { justify-content: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+<style>[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="head">
+    <div>
+      <h1 id="title">دليل الموردين في مصر</h1>
+      <p class="byline" id="byline"></p>
+      <p class="lede" id="lede"></p>
+    </div>
+    <div class="headside">
+      <div class="lang" role="group" aria-label="Language" id="langSeg">
+        <button type="button" data-l="ar" aria-pressed="true">عربي</button>
+        <button type="button" data-l="en" aria-pressed="false">English</button>
+      </div>
+      <div class="printgrp" id="printGrp" hidden><button type="button" class="printbtn" id="printAll"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 8V3h10v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="3" y="8" width="18" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 14h10v7H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span id="printAllLbl"></span></button><button type="button" class="printbtn" id="printBtn"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 8V3h10v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="3" y="8" width="18" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 14h10v7H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span id="printLbl"></span></button></div>
+      <span class="printmsg" id="printMsg"></span>
+      <div class="fresh" id="fresh"></div>
+    </div>
+  </header>
+
+  <section class="strip" id="strip" aria-label="Summary"></section>
+
+  <div class="tabs" role="tablist" id="tabs">
+    <button type="button" role="tab" data-tab="sup" aria-selected="true" id="tabSup"></button>
+    <button type="button" role="tab" data-tab="frn" aria-selected="false" id="tabFrn"></button>
+    <button type="button" role="tab" data-tab="mat" aria-selected="false" id="tabMat"></button>
+  </div>
+
+  <div class="searchbox" role="search">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    <input type="search" id="q" autocomplete="off">
+    <button type="button" id="qClear" class="clear" hidden></button>
+  </div>
+
+  <section class="bar" aria-label="Filters">
+    <div class="seg" role="group" id="sectorSeg"></div>
+    <select id="cat"></select>
+    <select id="typ"></select>
+    <label class="chk"><input type="checkbox" id="hasPhone"> <span id="hasPhoneLbl"></span></label>
+  </section>
+
+  <main id="list"><div class="empty" id="loading"></div></main>
+  <section id="frn" hidden><p class="lede" id="frnIntro"></p><div class="mgrid" id="fgrid"></div></section>
+  <section id="mats" hidden><p class="lede" id="matIntro"></p><div class="mgrid" id="mgrid"></div></section>
+
+  <p class="note" id="note"></p>
+  <footer class="sign"><span id="signLbl"></span> <strong id="signName"></strong></footer>
+</div>
+
+<script>
+(function () {
+  const SECTORS = [
+    ["Construction & Building", "البناء والتشييد", "Construction"],
+    ["Electronics & IT", "الإلكترونيات وتكنولوجيا المعلومات", "Electronics & IT"],
+    ["Raw Materials", "الخامات", "Raw materials"],
+    ["Plastics Industry", "صناعة البلاستيك", "Plastics"],
+    ["Rubber Industry", "صناعة المطاط", "Rubber"],
+    ["Forging & Casting", "الطرق والسباكة", "Forging & casting"],
+    ["Glass Industry", "صناعة الزجاج", "Glass"],
+    ["Wood & Panels", "الأخشاب والألواح", "Wood"],
+    ["Hardware & Accessories", "الإكسسوارات والخردوات", "Accessories"],
+    ["Machinery & Equipment", "الماكينات والمعدات", "Machinery"],
+    ["Maintenance & Services", "الصيانة والخدمات", "Maintenance"],
+  ];
+  const TYPES = {
+    "Manufacturer": "مُصنّع",
+    "Distributor": "موزع",
+    "Official agent / importer": "وكيل رسمي / مستورد",
+    "Retailer / reseller": "تاجر تجزئة / موزع فرعي",
+    "Maintenance / service provider": "مقدم صيانة / خدمات",
+  };
+  const CATS = {
+    "Steel & rebar": "الحديد وحديد التسليح",
+    "Cement": "الأسمنت",
+    "Ceramics, porcelain & sanitary ware": "السيراميك والبورسلين والأدوات الصحية",
+    "Paints & coatings": "الدهانات والطلاءات",
+    "Construction chemicals & insulation": "كيماويات البناء والعزل",
+    "Cables & electrical": "الكابلات والأدوات الكهربائية",
+    "Aluminium": "الألومنيوم",
+    "Steel sheets & coils": "ألواح ولفائف الصلب",
+    "Steel profiles, beams & angles": "القطاعات والكمرات والزوايا الحديدية",
+    "Steel pipes & tubes": "المواسير والأنابيب الحديدية",
+    "Home appliances & TVs": "الأجهزة المنزلية والتلفزيونات",
+    "Mobiles & consumer electronics brands": "المحمول والإلكترونيات الاستهلاكية",
+    "Computers & IT distribution": "توزيع الكمبيوتر وتكنولوجيا المعلومات",
+    "Retail chains": "سلاسل التجزئة",
+    "Industrial chemicals": "الكيماويات الصناعية",
+    "Metals": "المعادن",
+    "Industrial minerals": "الخامات التعدينية",
+    "Electronic components & connectors": "المكونات الإلكترونية والموصلات",
+    "Polymer producers": "منتجو البوليمرات",
+    "Resin & polymer distributors": "موزعو خامات البلاستيك",
+    "Masterbatch & additives": "الماستر باتش والإضافات",
+    "Plastic packaging": "العبوات البلاستيكية",
+    "Plastics machinery": "ماكينات البلاستيك",
+    "Forgings": "المطروقات (الفورج)",
+    "Foundries & castings": "المسابك والمسبوكات",
+    "Non-ferrous & die casting": "سباكة المعادن غير الحديدية والسباكة بالضغط",
+    "Forged flanges & fittings": "الفلانشات والوصلات المطروقة",
+    "Compressors & air systems": "الضواغط وأنظمة الهواء المضغوط",
+    "Heavy equipment, engines & generators": "المعدات الثقيلة والمحركات والمولدات",
+    "Electric motors & rewinding": "المواتير الكهربائية وإعادة اللف",
+    "Cranes & lifting": "الأوناش ومعدات الرفع",
+    "Facility & MEP maintenance": "صيانة المنشآت والأعمال الكهروميكانيكية",
+    "Pumps & mechanical seals": "الطلمبات والميكانيكال سيل",
+    "Rubber raw materials": "خامات المطاط",
+    "Tires & tubes": "الإطارات والأنابيب الداخلية",
+    "Seals, O-rings & gaskets": "موانع التسرب والأورينج والجوانات",
+    "Machine tools & CNC": "ماكينات التشغيل وCNC",
+    "Industrial machinery agents": "وكلاء الماكينات الصناعية",
+    "Packaging & food processing machinery": "ماكينات التعبئة والتغليف وتصنيع الأغذية",
+    "Welding & cutting equipment": "معدات اللحام والقطع",
+    "Forklifts & material handling": "الكلاركات ومعدات المناولة",
+    "Construction & earthmoving equipment": "معدات الإنشاءات والحفر",
+    "Generators & power equipment": "المولدات ومعدات الطاقة",
+    "Industrial automation & drives": "الأتمتة الصناعية والإنفرترات",
+    "Float & flat glass": "الزجاج المسطح (الفلوت)",
+    "Glass processing & façades": "تشكيل وتقسية الزجاج والواجهات",
+    "Automotive glass": "زجاج السيارات",
+    "Glass containers & tableware": "العبوات والأدوات الزجاجية",
+    "MDF, particleboard & panels": "ألواح MDF والخشب المضغوط",
+    "Timber importers & traders": "مستوردو وتجار الأخشاب",
+    "Furniture & kitchen fittings": "إكسسوارات الأثاث والمطابخ",
+    "Door & window hardware": "إكسسوارات الأبواب والشبابيك",
+    "Glass & aluminium accessories": "إكسسوارات الزجاج والألومنيوم",
+  };
+  const M = (en, ar, pEn, pAr, mEn, mAr, cats) => ({ en, ar, pEn, pAr, mEn: mEn.split("|"), mAr: mAr.split("|"), cats });
+  const MATS = [
+    M("Steel sheets & coils (hot rolled, cold rolled, galvanized, tinplate)", "ألواح ولفائف الصلب (ساخن، بارد، مجلفن، صفيح)", "Shearing, bending, deep drawing, pressing, roll forming, welding, painting", "قص، ثني، سحب عميق، كبس، تشكيل بالدرفلة، لحام، دهان",
+      "Steel doors & rolling shutters|Electrical panels & cabinets|Fridge, cooker & washer bodies|Car body parts & chassis members|HVAC ducts|Water tanks & silos|Roofing & cladding sheets|Light-gauge C/Z purlins|Drums, cans & paint tins|Metal furniture & lockers|Shelving & storage racks|Boilers & pressure vessels",
+      "أبواب صاج وشيش حصيرة|لوحات وكبائن كهرباء|أجسام الثلاجات والبوتاجازات والغسالات|أجزاء هياكل السيارات والشاسيه|مجاري تكييف (دكت)|خزانات مياه وصوامع|ألواح أسقف وتكسيات|مدادات C وZ خفيفة|براميل وعلب وصفائح دهان|أثاث معدني ودواليب|أرفف ورفوف تخزين|غلايات وأوعية ضغط", ["Steel sheets & coils"]),
+    M("Steel profiles, beams, angles & channels", "القطاعات والكمرات والزوايا والمجاري الحديدية", "Cutting, drilling, welding, bolting, galvanizing", "قص، تخريم، لحام، تجميع بالمسامير، جلفنة",
+      "Steel structures & warehouses|Roof trusses & hangars|Transmission & telecom towers|Stairs, railings & balconies|Gates & fences|Machine frames & bases|Cable trays & supports|Trailers & truck chassis|Scaffolding & platforms|Mezzanine floors",
+      "هياكل معدنية ومخازن|جمالونات وهناجر|أبراج كهرباء واتصالات|سلالم ودرابزين وبلكونات|بوابات وأسوار|شاسيهات وقواعد ماكينات|حوامل ومجاري كابلات|مقطورات وشاسيهات نقل|سقالات ومنصات عمل|أدوار ميزانين", ["Steel profiles, beams & angles"]),
+    M("Steel pipes & hollow sections", "المواسير والقطاعات المجوفة", "Cutting, bending, threading, welding", "قص، ثني، قلوظة، لحام",
+      "Water & gas lines|Fire-fighting networks|Scaffolding tubes|Furniture & bed frames|Handrails & balustrades|Greenhouse frames|Lighting & sign poles|Boiler & heat-exchanger tubes|Gym equipment & bicycles|Fences & barriers",
+      "خطوط مياه وغاز|شبكات إطفاء الحريق|مواسير سقالات|هياكل أثاث وسراير|درابزين وكوبستات|هياكل صوب زراعية|أعمدة إنارة ولافتات|مواسير غلايات ومبادلات حرارية|أجهزة رياضية ودراجات|أسوار وحواجز", ["Steel pipes & tubes"]),
+    M("Rebar & wire rod", "حديد التسليح والسلك", "Wire drawing, cutting, bending, welding mesh", "سحب السلك، قص، تكسيح، لحام شبك",
+      "Reinforced concrete|Stirrups & cages|Welded mesh|Nails & screws|Barbed & binding wire|Springs|Bolts & fasteners|Precast concrete elements",
+      "الخرسانة المسلحة|كانات وأقفاص تسليح|شبك ملحوم|مسامير وصواميل|سلك شائك وسلك رباط|يايات|مسامير قلاووظ ومثبتات|عناصر خرسانة سابقة الصب", ["Steel & rebar"]),
+    M("Aluminium (billets, ingots, sheets)", "الألومنيوم (بليت، إنجوت، ألواح)", "Extrusion, rolling, die casting, anodizing, powder coating", "بثق، درفلة، سباكة بالضغط، أنودة، دهان بودرة",
+      "Window & door profiles|Curtain walls & façades|Composite cladding panels (ACP)|Foil & food containers|Beverage cans|Heat sinks & radiators|Cookware|Overhead conductors|Ladders & scaffolds|Car parts & wheels",
+      "قطاعات الشبابيك والأبواب|الواجهات الزجاجية (كيرتن وول)|ألواح الكلادينج|ورق ألومنيوم وعلب طعام|علب المشروبات|مشتتات حرارية ورادياتيرات|أواني الطهي|موصلات الضغط العالي|سلالم وسقالات|قطع غيار وجنوط سيارات", ["Aluminium", "Metals", "Non-ferrous & die casting"]),
+    M("Copper & brass", "النحاس والنحاس الأصفر", "Wire drawing, rolling, extrusion, casting, machining", "سحب، درفلة، بثق، سباكة، خراطة",
+      "Electrical wires & cables|Busbars|Motor & transformer windings|AC copper tubes|Valves & plumbing fittings|Heat exchangers|Earthing rods|Electrical terminals & connectors",
+      "أسلاك وكابلات كهرباء|بارات نحاس|ملفات المواتير والمحولات|مواسير تكييف نحاس|محابس ووصلات سباكة|مبادلات حرارية|أعمدة تأريض|أطراف وموصلات كهربائية", ["Metals", "Cables & electrical"]),
+    M("Pig iron & steel scrap (melting stock)", "الزهر وخردة الصلب (خامات الصهر)", "Melting & sand casting, hot forging, heat treatment, machining", "صهر وسباكة رملية، طرق على الساخن، معالجة حرارية، تشغيل",
+      "Manhole covers & gratings|Pump & valve bodies|Engine blocks & cylinder heads|Gears & shafts|Flanges & pipe fittings|Crankshafts & connecting rods|Hand tools|Brake drums & discs|Pulleys|Machine spare parts",
+      "أغطية بالوعات وجريلات|أجسام طلمبات ومحابس|بلوكات ورؤوس محركات|تروس وأعمدة|فلانشات ووصلات مواسير|أعمدة كرنك وأذرع توصيل|عدد يدوية|طنابير وديسكات فرامل|بكرات (طارات)|قطع غيار ماكينات", ["Foundries & castings", "Forgings", "Forged flanges & fittings"]),
+    M("Cement & aggregates", "الأسمنت والركام", "Mixing, casting, pressing, curing", "خلط، صب، كبس، معالجة",
+      "Ready-mix concrete|Concrete blocks & interlock|Precast panels & beams|Concrete pipes & manholes|Curbstones|Cement tiles|Mortars, plaster & tile adhesive",
+      "خرسانة جاهزة|طوب خرساني وإنترلوك|بانوهات وكمرات سابقة الصب|مواسير وغرف تفتيش خرسانية|بلدورات|بلاط أسمنتي|مونة ومحارة ولاصق بلاط", ["Cement"]),
+    M("Clay, kaolin, feldspar & silica sand", "الطفلة والكاولين والفلسبار ورمل السيليكا", "Milling, pressing, glazing, firing, melting", "طحن، كبس، تزجيج، حرق، صهر",
+      "Ceramic & porcelain tiles|Sanitary ware|Tableware|Glass|Bricks|Refractory bricks|Foundry sand moulds|Fillers for paint & paper",
+      "بلاط سيراميك وبورسلين|أدوات صحية|أطباق وأدوات مائدة|زجاج|طوب|طوب حراري|قوالب رمل المسابك|مواد مالئة للدهانات والورق", ["Industrial minerals", "Ceramics, porcelain & sanitary ware"]),
+    M("Calcium carbonate, talc & fillers", "كربونات الكالسيوم والتلك والمواد المالئة", "Micronizing, coating, compounding", "طحن ميكروني، تغليف، خلط",
+      "Paint & putty|Filler masterbatch|PVC pipes|Paper|Adhesives & sealants|Animal feed|Toothpaste & cosmetics",
+      "دهانات ومعجون|ماستر باتش فيلر|مواسير PVC|ورق|لواصق ومواد عزل|أعلاف|معجون أسنان ومستحضرات تجميل", ["Industrial minerals", "Masterbatch & additives"]),
+    M("Polyethylene (HDPE, LDPE, LLDPE)", "البولي إيثيلين (عالي ومنخفض الكثافة)", "Film blowing, extrusion, blow moulding, injection, rotomoulding", "نفخ أفلام، بثق، نفخ عبوات، حقن، صب دوراني",
+      "Bags & shrink film|HDPE water & gas pipes|Bottles & jerrycans|Water tanks|Crates & pallets|Cable insulation|Greenhouse & mulch film|Drip irrigation lines|Toys & housewares",
+      "أكياس وأفلام شرنك|مواسير HDPE للمياه والغاز|زجاجات وجراكن|خزانات مياه|أقفاص وبالتات|عزل الكابلات|أفلام الصوب والتغطية|خراطيم الري بالتنقيط|لعب وأدوات منزلية", ["Polymer producers", "Resin & polymer distributors"]),
+    M("Polypropylene (PP)", "البولي بروبيلين", "Injection, raffia weaving, BOPP film, fibre spinning, extrusion", "حقن، نسج الرافيا، أفلام BOPP، غزل الألياف، بثق",
+      "Woven sacks & jumbo bags|Caps & closures|Food containers|Car bumpers & interior parts|Plastic chairs & furniture|Appliance parts|Non-woven fabric & masks|PPR pipes|BOPP packaging film",
+      "أجولة منسوجة وجامبو|أغطية وسدادات|علب طعام|إكصدامات وقطع داخلية للسيارات|كراسي وأثاث بلاستيك|قطع الأجهزة المنزلية|قماش غير منسوج وكمامات|مواسير PPR|أفلام تغليف BOPP", ["Polymer producers", "Resin & polymer distributors", "Plastic packaging"]),
+    M("PVC", "البولي فينيل كلورايد (PVC)", "Extrusion, calendering, injection, coating", "بثق، كلندرة، حقن، تغليف",
+      "Pipes & fittings|uPVC window profiles|Cable insulation|Flooring & wall panels|Garden hoses|Medical tubing & bags|Rigid sheets|Artificial leather",
+      "مواسير ووصلات|قطاعات شبابيك uPVC|عزل الكابلات|أرضيات وتجاليد حوائط|خراطيم حدائق|خراطيم وأكياس طبية|ألواح صلبة|جلد صناعي", ["Polymer producers", "Resin & polymer distributors"]),
+    M("PET & polystyrene (PS, EPS)", "البولي إيثيلين تيريفثالات والبوليستيرين", "Preform injection, stretch blow moulding, thermoforming, foaming", "حقن البريفورم، النفخ، التشكيل الحراري، الفوم",
+      "Water & soft-drink bottles|Preforms|Food trays & cups|Polyester fibre|Strapping bands|Foam packaging|Insulation boards|Disposable cutlery",
+      "زجاجات مياه ومشروبات|بريفورم|أطباق وأكواب|ألياف بوليستر|شرائط ربط|تغليف فوم|ألواح عزل فوم|أدوات مائدة للاستخدام مرة واحدة", ["Polymer producers", "Resin & polymer distributors", "Plastic packaging"]),
+    M("Natural & synthetic rubber, carbon black", "المطاط الطبيعي والصناعي والكربون الأسود", "Compounding, calendering, moulding, extrusion, vulcanizing", "خلط، كلندرة، كبس في قوالب، بثق، فلكنة",
+      "Tires & inner tubes|Seals, O-rings & gaskets|Hoses|Conveyor belts|V-belts|Shoe soles|Mats & flooring|Anti-vibration mounts|Rubber rollers|Cable sheathing",
+      "إطارات وأنابيب داخلية|موانع تسرب وأورينج وجوانات|خراطيم|سيور ناقلة|سيور مراوح|نعال أحذية|دواسات وأرضيات|قواعد مانعة للاهتزاز|درافيل مطاط|أغلفة كابلات", ["Rubber raw materials", "Tires & tubes", "Seals, O-rings & gaskets"]),
+    M("Float glass", "الزجاج المسطح (الفلوت)", "Cutting, tempering, laminating, double glazing, silvering, bending", "قص، تقسية (سيكوريت)، تصفيح، دبل جلاس، فضض (مرايات)، ثني",
+      "Windows & doors|Tempered & laminated safety glass|Double-glazed units|Façades & skylights|Mirrors|Shower enclosures|Table & furniture tops|Car windshields|Solar panel glass|Appliance doors",
+      "شبابيك وأبواب|زجاج سيكوريت ومصفح|زجاج دبل|واجهات وسقف زجاجي|مرايات|كبائن شاور|أسطح ترابيزات وأثاث|زجاج السيارات الأمامي|زجاج الألواح الشمسية|أبواب الأفران والأجهزة", ["Float & flat glass", "Glass processing & façades", "Automotive glass"]),
+    M("Glass batch (silica sand, soda ash, cullet)", "خامات الزجاج (رمل، صودا آش، كسر زجاج)", "Melting, pressing, blowing, annealing", "صهر، كبس، نفخ، تلدين",
+      "Bottles & jars|Drinking glasses & tableware|Pharmaceutical vials|Perfume bottles|Lighting glass|Glass wool insulation",
+      "زجاجات وبرطمانات|أكواب وأدوات مائدة|أمبولات وفيالات دوائية|زجاجات عطور|زجاج الإنارة|صوف زجاجي للعزل", ["Glass containers & tableware", "Industrial minerals"]),
+    M("MDF, particleboard, HDF & HPL", "ألواح MDF والخشب المضغوط وHDF وHPL", "Panel cutting, edge banding, CNC routing, pressing, lacquering", "تقطيع ألواح، تركيب شريط حرف، حفر CNC، كبس، دهان",
+      "Home & office furniture|Kitchens|Wardrobes|Interior doors|Laminate flooring (HDF)|Wall cladding|Shop & hotel fit-out|Speaker cabinets & packaging",
+      "أثاث منزلي ومكتبي|مطابخ|دواليب|أبواب داخلية|أرضيات باركيه (HDF)|تجاليد حوائط|تجهيز محلات وفنادق|صناديق سماعات وتغليف", ["MDF, particleboard & panels", "Furniture & kitchen fittings"]),
+    M("Solid timber (beech, pine, oak)", "الأخشاب الطبيعية (زان، موسكي، أرو)", "Sawing, planing, joinery, turning, drying", "نشر، تسوية، نجارة، خراطة، تجفيف",
+      "Doors & frames|Solid-wood furniture|Wooden windows|Pallets & crates|Roof structures & pergolas|Wood flooring|Concrete formwork|Handrails & stairs",
+      "أبواب وحلوق|أثاث خشب طبيعي|شبابيك خشب|بالتات وصناديق|أسقف خشبية وبرجولات|أرضيات خشب|شدات خشبية للخرسانة|درابزين وسلالم", ["Timber importers & traders"]),
+    M("Industrial chemicals (caustic soda, acids, solvents, TiO2)", "الكيماويات الصناعية (صودا كاوية، أحماض، مذيبات، ثاني أكسيد التيتانيوم)", "Mixing, reaction, dispersion, filling", "خلط، تفاعل، تشتيت، تعبئة",
+      "Paints & varnishes|Detergents & soap|Adhesives|Waterproofing & concrete admixtures|Water treatment chemicals|Textile dyes|Fertilizers|Metal surface treatment",
+      "دهانات وورنيشات|منظفات وصابون|لواصق|مواد عزل وإضافات خرسانة|كيماويات معالجة المياه|صبغات نسيج|أسمدة|معالجة أسطح المعادن", ["Industrial chemicals", "Paints & coatings", "Construction chemicals & insulation"]),
+    M("Electronic components & connectors", "المكونات الإلكترونية والموصلات", "PCB assembly (SMT), soldering, enclosure assembly, testing", "تجميع اللوحات (SMT)، لحام، تجميع، اختبار",
+      "Printed circuit boards|Power supplies & chargers|LED lighting|Control panels|Electricity & water meters|Appliance controllers|Solar inverters|Security & alarm systems",
+      "لوحات إلكترونية مطبوعة|مصادر تغذية وشواحن|إضاءة LED|لوحات تحكم|عدادات كهرباء ومياه|كروت تحكم الأجهزة المنزلية|إنفرترات طاقة شمسية|أنظمة أمن وإنذار", ["Electronic components & connectors"]),
+  ];
+  const matsOf = (cat) => MATS.filter(m => m.cats.includes(cat));
+
+  const T = {
+    ar: {
+      title: "دليل الموردين في مصر",
+      prepared: "إعداد:", signer: "م. محمد الرفاعي · هاتف ⁦+20 106 736 8265⁩",
+      site: "الموقع الرسمي", findSite: "ابحث عن الموقع", website: "الموقع",
+      tabFrn: "الشركات الأجنبية", frnTitle: "الشركات الأجنبية وشركاؤها في مصر", frnCount: "شركة أجنبية",
+      frnIntro: "الشركات العالمية العاملة في السوق المصرية مع بلدها وموقعها الرسمي ومنتجاتها، ووكلائها وموزعيها وشركائها في مصر. اضغط على اسم الشريك لفتح بطاقته في دليل الموردين.",
+      country: "البلد", egPartners: "الشركاء في مصر", frnNone: "لا توجد شركات أجنبية مطابقة.", frnEmpty: "جارٍ تحميل الشركات الأجنبية…",
+      roles: { "Subsidiary": "شركة تابعة", "Joint venture": "مشروع مشترك", "Official agent": "وكيل رسمي", "Distributor": "موزع", "Dealer": "تاجر معتمد", "Service partner": "شريك صيانة", "Equipment customer": "عميل (خطوط إنتاج)", "Supplier": "مورّد خامات" },
+      tabSup: "الموردون", tabMat: "ما يُصنَّع من الخامات", matTitle: "ما يمكن تصنيعه من الخامات الأصلية",
+      matIntro: "لكل خامة أصلية: المنتجات التي يمكن تصنيعها منها وطرق التشغيل، مع زر للانتقال إلى موردي هذه الخامة في مصر.",
+      material: "الخامة", process: "طرق التشغيل", products: "منتجات يمكن تصنيعها", makes: "يمكن تصنيعه:", showSup: n => `عرض الموردين (${n.toLocaleString("ar-EG")})`, matNone: "لا توجد خامات مطابقة للبحث.",
+      print: "طباعة نتائج البحث", printAll: "طباعة الكل", printing: "جارٍ تجهيز نسخة الطباعة…", printSaved: "تم حفظ الملف. افتحه في المتصفح للطباعة.", printFail: "تعذّر حفظ ملف الطباعة.", printed: "تاريخ الطباعة", company: "الشركة", category: "الفئة", branchesH: "الفروع", count: "عدد الموردين",
+      lede: "مصنّعون وموزعون ووكلاء رسميون ومقدمو صيانة في مواد البناء والإلكترونيات والخامات والبلاستيك والمطاط والطرق والسباكة والزجاج والأخشاب والإكسسوارات والماكينات في كل محافظات مصر، مع الأرقام والخطوط الساخنة وأسماء المسؤولين المنشورة.",
+      search: "ابحث: اسم الشركة، المنتج (مثل زوايا، مجلفن)، المدينة، الفرع، الشريك…",
+      clear: "مسح", allSectors: "كل القطاعات", allCats: "كل الفئات", allTypes: "كل أنواع الموردين",
+      hasPhone: "التي لها رقم هاتف فقط", loading: "جارٍ تحميل الموردين…",
+      suppliers: "مورد", official: "أرقام رسمية", toFind: "أرقام قيد البحث",
+      refreshed: "آخر تحديث", waiting: "في انتظار أول تحديث", connecting: "جارٍ الاتصال…",
+      contact: "المسؤول", phone: "الهاتف", address: "العنوان", general: "الخط العام",
+      st: { official: "رسمي", directory: "من دليل", missing: "لم يُعثر عليه بعد" },
+      copy: "نسخ", copied: "تم النسخ", selected: "تم التحديد",
+      dealers: "الوكلاء والموزعون", partnersOf: "المصانع والعلامات الشريكة",
+      branches: n => n === 1 ? "فرع واحد" : n === 2 ? "فرعان" : n <= 10 ? `${n} فروع` : `${n} فرعًا`,
+      none: "لا يوجد موردون مطابقون. امسح البحث أو اختر «كل الفئات».",
+      emptyDb: "لا يوجد موردون بعد. سيظهرون هنا فور إضافتهم، والتحديث اليومي يضيف المزيد.",
+      signin: "تُعرض قائمة الموردين للمستخدمين المسجلين. افتح الصفحة من claude.ai.",
+      failed: "تعذّر تحميل الدليل الآن. أعد تحميل الصفحة.",
+      source: "المصدر", cairo: "بتوقيت القاهرة",
+      note: '<b>حالة الهاتف:</b> <span class="pill official">رسمي</span> من موقع الشركة أو بياناتها الرسمية · <span class="pill directory">من دليل</span> من دليل أعمال أو خبر صحفي، يُفضّل التأكد بمكالمة · <span class="pill missing">لم يُعثر عليه بعد</span> التحديث اليومي يواصل البحث. الخطوط الساخنة (5 أرقام تبدأ بـ 15 أو 16 أو 19) تعمل من داخل مصر فقط. العناوين والأسماء الإنجليزية تُترجم تدريجيًا مع التحديث اليومي.',
+    },
+    en: {
+      title: "Egypt Supplier Directory",
+      prepared: "Prepared by", signer: "Eng. Mohamed Elrefay · Phone ⁦+20 106 736 8265⁩",
+      site: "Official site", findSite: "Find site online", website: "Website",
+      tabFrn: "Foreign companies", frnTitle: "Foreign companies and their partners in Egypt", frnCount: "Foreign companies",
+      frnIntro: "International companies active in Egypt, with their country, official site and products, and their Egyptian agents, distributors and partners. Tap a partner to open its card in the supplier directory.",
+      country: "Country", egPartners: "Partners in Egypt", frnNone: "No foreign companies match.", frnEmpty: "Loading foreign companies…",
+      roles: { "Subsidiary": "Subsidiary", "Joint venture": "Joint venture", "Official agent": "Official agent", "Distributor": "Distributor", "Dealer": "Dealer", "Service partner": "Service partner", "Equipment customer": "Equipment customer", "Supplier": "Material supplier" },
+      tabSup: "Suppliers", tabMat: "What can be made", matTitle: "What can be manufactured from original materials",
+      matIntro: "For each original material: the products that can be manufactured from it and the processes used, with a button that jumps to that material's suppliers in Egypt.",
+      material: "Material", process: "Processes", products: "Products that can be made", makes: "Can be made:", showSup: n => `Show suppliers (${n})`, matNone: "No materials match the search.",
+      print: "Print results", printAll: "Print all", printing: "Preparing the print copy…", printSaved: "Saved. Open the file in your browser to print it.", printFail: "The print file could not be saved.", printed: "Printed", company: "Company", category: "Category", branchesH: "Branches", count: "Suppliers",
+      lede: "Manufacturers, distributors, official agents and maintenance providers for construction materials, electronics, raw materials, plastics, rubber, forging & casting, glass, wood, hardware & accessories, and machinery across Egypt, with phones, hotlines and named contacts where they are published.",
+      search: "Search: company, product (e.g. angles, galvanized), city, branch, partner…",
+      clear: "Clear", allSectors: "All sectors", allCats: "All categories", allTypes: "All provider types",
+      hasPhone: "With phone only", loading: "Loading suppliers…",
+      suppliers: "Suppliers", official: "Official phones", toFind: "Phones to find",
+      refreshed: "Refreshed", waiting: "Waiting for first refresh", connecting: "Connecting…",
+      contact: "Contact", phone: "Phone", address: "Address", general: "General line",
+      st: { official: "Official", directory: "Directory", missing: "Not found yet" },
+      copy: "Copy", copied: "Copied", selected: "Selected",
+      dealers: "Dealers / agents", partnersOf: "Partner mills & brands",
+      branches: n => `${n} branch${n > 1 ? "es" : ""}`,
+      none: 'No suppliers match these filters. Clear the search or pick "All categories".',
+      emptyDb: "No suppliers stored yet. They appear here as soon as the directory is filled, and the daily refresh adds more.",
+      signin: "The supplier list loads for signed-in viewers. Open this page from claude.ai to see it.",
+      failed: "The directory could not be loaded right now. Reload the page to try again.",
+      source: "Source", cairo: "Cairo",
+      note: '<b>Phone status:</b> <span class="pill official">Official</span> taken from the company\'s own site or filings · <span class="pill directory">Directory</span> from a business directory or press listing, worth a confirming call · <span class="pill missing">Not found yet</span> the daily refresh keeps looking. Hotlines (5-digit numbers starting 15/16/19) only work from inside Egypt.',
+    },
+  };
+
+  let lang = "ar";
+  try { const s = localStorage.getItem("lang"); if (s === "en" || s === "ar") lang = s; } catch (e) {}
+  const state = { tab: "sup", frn: [], rows: [], meta: null, sector: "all", cat: "all", typ: "all", q: "", hasPhone: false, loaded: false, error: "" };
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const t = () => T[lang];
+  const ar = () => lang === "ar";
+  const secName = (s) => { const x = SECTORS.find(r => r[0] === s); return x ? (ar() ? x[1] : x[0]) : s; };
+  const catName = (c) => ar() ? (CATS[c] || c) : c;
+  const typeName = (ty) => ar() ? (TYPES[ty] || ty) : ty;
+  const f = (r, k) => ar() ? (r[k + "Ar"] || r[k] || "") : (r[k] || "");
+
+  function fmtDate(iso) {
+    const d = new Date(iso);
+    if (isNaN(d)) return iso || "";
+    return d.toLocaleString(ar() ? "ar-EG" : "en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Africa/Cairo" }) + " " + t().cairo;
+  }
+
+  function applyStatic() {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = ar() ? "rtl" : "ltr";
+    $("title").textContent = t().title;
+    $("lede").textContent = t().lede;
+    $("byline").innerHTML = `${esc(t().prepared)} <strong>${esc(t().signer)}</strong>`;
+    $("signLbl").textContent = t().prepared;
+    $("signName").textContent = t().signer;
+    $("printLbl").textContent = t().print;
+    $("printAllLbl").textContent = t().printAll;
+    $("q").placeholder = t().search;
+    $("q").setAttribute("aria-label", t().search);
+    $("qClear").textContent = t().clear;
+    $("hasPhoneLbl").textContent = t().hasPhone;
+    $("note").innerHTML = t().note;
+    $("tabSup").textContent = t().tabSup;
+    $("tabMat").textContent = t().tabMat;
+    $("tabFrn").textContent = t().tabFrn;
+    $("frnIntro").textContent = t().frnIntro;
+    $("frn").hidden = state.tab !== "frn";
+    ["cat", "typ"].forEach(id => { $(id).hidden = state.tab !== "sup"; });
+    document.querySelector(".bar .chk").hidden = state.tab !== "sup";
+    $("matIntro").textContent = t().matIntro;
+    $("tabs").querySelectorAll("button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === state.tab)));
+    document.querySelector(".bar").hidden = state.tab === "mat";
+    $("list").hidden = state.tab !== "sup";
+    $("mats").hidden = state.tab !== "mat";
+    $("langSeg").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.l === lang)));
+    $("sectorSeg").innerHTML = `<button type="button" data-v="all" aria-pressed="${state.sector === "all"}">${esc(t().allSectors)}</button>` +
+      SECTORS.map(s => `<button type="button" data-v="${esc(s[0])}" aria-pressed="${state.sector === s[0]}">${esc(ar() ? s[1] : s[2])}</button>`).join("");
+    $("typ").innerHTML = `<option value="all">${esc(t().allTypes)}</option>` +
+      Object.keys(TYPES).map(k => `<option value="${esc(k)}"${state.typ === k ? " selected" : ""}>${esc(typeName(k))}</option>`).join("");
+  }
+
+  function renderFresh() {
+    const m = state.meta;
+    if (state.error) { $("fresh").innerHTML = `<span><span class="dot stale"></span>${esc(state.error)}</span>`; return; }
+    if (!state.loaded) { $("fresh").innerHTML = `<span><span class="dot stale"></span>${esc(t().connecting)}</span>`; return; }
+    if (!m) { $("fresh").innerHTML = `<span><span class="dot stale"></span>${esc(t().waiting)}</span>`; return; }
+    const age = (Date.now() - new Date(m.lastRun).getTime()) / 36e5;
+    const summary = ar() ? (m.summaryAr || "") : (m.summary || "");
+    $("fresh").innerHTML = `<span><span class="dot ${age > 30 ? "stale" : ""}"></span>${esc(t().refreshed)} <strong>${esc(fmtDate(m.lastRun))}</strong></span>` + (summary ? `<span>${esc(summary)}</span>` : "");
+  }
+
+  function renderStrip() {
+    const r = state.rows;
+    const n = (fn) => r.filter(fn).length;
+    const items = [[r.length, t().suppliers]]
+      .concat(SECTORS.map(s => [n(x => x.sector === s[0]), ar() ? s[1] : s[2]]))
+      .concat([[state.frn.length, t().frnCount], [n(x => x.phoneStatus === "official"), t().official], [n(x => x.phoneStatus === "missing"), t().toFind]]);
+    $("strip").innerHTML = items.map(([v, l]) => `<div><b>${v.toLocaleString(ar() ? "ar-EG" : "en-GB")}</b><span>${esc(l)}</span></div>`).join("");
+  }
+
+  function renderCats() {
+    const cats = [...new Set(state.rows.filter(r => state.sector === "all" || r.sector === state.sector).map(r => r.category))]
+      .sort((a, b) => catName(a).localeCompare(catName(b), lang));
+    if (!cats.includes(state.cat)) state.cat = "all";
+    $("cat").innerHTML = `<option value="all">${esc(t().allCats)}</option>` + cats.map(c => `<option value="${esc(c)}"${c === state.cat ? " selected" : ""}>${esc(catName(c))}</option>`).join("");
+  }
+
+  const phoneSpan = (p) => `<span class="phone"><span>${esc(p)}</span><button type="button" class="copy" data-copy="${esc(p.replace(/\s*\(.*\)$/, ""))}">${esc(t().copy)}</button></span>`;
+
+  function branchHtml(r) {
+    const b = (r.branches || []).filter(x => x && (x.address || x.city));
+    if (!b.length) return "";
+    const q = state.q.trim().toLowerCase();
+    const open = q && b.some(x => [x.city, x.cityAr, x.address, x.addressAr, x.name, x.nameAr].join(" ").toLowerCase().includes(q));
+    return `<details class="br"${open ? " open" : ""}><summary>${esc(t().branches(b.length))}</summary><ul>` +
+      b.map(x => `<li><b>${esc(f(x, "city"))}</b>${f(x, "name") ? " · " + esc(f(x, "name")) : ""}<span class="sub"> ${esc(f(x, "address"))}</span>${x.phone ? " " + phoneSpan(x.phone) : ""}</li>`).join("") + "</ul></details>";
+  }
+
+  function rowHtml(r) {
+    const status = r.phoneStatus || "missing";
+    const phones = (r.phones || []).filter(Boolean);
+    const phoneHtml = phones.length ? phones.map(phoneSpan).join("") : '<span class="sub">—</span>';
+    const web = "";
+    const site = r.website
+      ? `<a class="sitebtn" href="${esc(/^https?:/.test(r.website) ? r.website : "https://" + r.website)}" target="_blank" rel="noopener noreferrer" title="${esc(r.website)}">${esc(t().site)} <span aria-hidden="true">↗</span></a>`
+      : `<a class="sitebtn ghost" href="https://www.google.com/search?q=${encodeURIComponent(r.company + " Egypt official website")}" target="_blank" rel="noopener noreferrer">${esc(t().findSite)} <span aria-hidden="true">↗</span></a>`;
+    const src = r.sourceUrl ? `<a href="${esc(r.sourceUrl)}" target="_blank" rel="noopener">${esc(t().source)}: ${esc(r.source || "")}</a>` : esc(r.source || "");
+    const name = f(r, "company");
+    const altName = ar() && r.companyAr && r.companyAr !== r.company ? `<div class="alt ltr">${esc(r.company)}</div>` : "";
+    const partners = (r.partners || []).filter(Boolean);
+    return `<div class="row">
+      <div><div class="name">${esc(name)}</div>${altName}<div class="siterow">${site}</div><div class="sub">${esc(f(r, "items"))}</div><span class="type">${esc(typeName(r.type))}</span>${partners.length ? `<div class="partners"><span class="k2">${esc(r.type === "Manufacturer" ? t().dealers : t().partnersOf)}</span> ${partners.map(p => `<span class="chip">${esc(p)}</span>`).join("")}</div>` : ""}</div>
+      <div><span class="k">${esc(t().contact)}</span>${f(r, "contact") ? `<div>${esc(f(r, "contact"))}</div>` : `<div class="sub">${esc(t().general)}</div>`}${r.email ? `<div class="sub ltr">${esc(r.email)}</div>` : ""}</div>
+      <div><span class="k">${esc(t().phone)}</span>${phoneHtml}<span class="pill ${esc(status)}">${esc(t().st[status] || status)}</span></div>
+      <div><span class="k">${esc(t().address)}</span><div class="sub">${esc(f(r, "address"))}</div><div class="sub">${web}${web && src ? " · " : ""}${src}</div></div>
+      ${branchHtml(r)}
+    </div>`;
+  }
+
+  function hay(r) {
+    return [r.company, r.companyAr, r.contact, r.contactAr, r.address, r.addressAr, r.items, r.itemsAr, r.category, CATS[r.category], r.sector, secName(r.sector), r.email,
+      ...(r.partners || []), ...(r.branches || []).map(x => [x.city, x.cityAr, x.name, x.nameAr, x.address, x.addressAr].join(" ")),
+      ...matsOf(r.category).flatMap(m => [m.en, m.ar, ...m.mEn, ...m.mAr])].join(" ").toLowerCase();
+  }
+  const matHay = (m) => [m.en, m.ar, m.pEn, m.pAr, ...m.mEn, ...m.mAr, ...m.cats, ...m.cats.map(c => CATS[c] || "")].join(" ").toLowerCase();
+  const currentMats = () => { const q = state.q.trim().toLowerCase(); return MATS.filter(m => !q || matHay(m).includes(q)); };
+  const matCount = (m) => state.rows.filter(r => m.cats.includes(r.category)).length;
+
+  function renderMats() {
+    const ms = currentMats();
+    if (!ms.length) { $("mgrid").innerHTML = `<div class="empty">${esc(t().matNone)}</div>`; return; }
+    $("mgrid").innerHTML = ms.map(m => {
+      const i = MATS.indexOf(m), n = matCount(m);
+      const items = ar() ? m.mAr : m.mEn;
+      return `<article class="mcard"><h3>${esc(ar() ? m.ar : m.en)}</h3><div class="proc"><b>${esc(t().process)}:</b> ${esc(ar() ? m.pAr : m.pEn)}</div><span class="k">${esc(t().products)}</span><div class="chips">${items.map(x => `<span class="chip">${esc(x)}</span>`).join("")}</div>${n ? `<button type="button" class="find" data-m="${i}">${esc(t().showSup(n))}</button>` : ""}</article>`;
+    }).join("");
+  }
+
+  const roleName = (r) => t().roles[r] || r;
+  const supName = (p) => { const s = state.rows.find(r => r.id === p.id); return s ? f(s, "company") : (ar() ? (p.nameAr || p.name) : p.name) || p.id || ""; };
+  const frnHay = (x) => [x.company, x.companyAr, x.country, x.countryAr, x.products, x.productsAr, x.sector, secName(x.sector), x.category, CATS[x.category], x.website,
+    ...(x.egypt || []).map(p => { const s = state.rows.find(r => r.id === p.id); return [p.name, p.nameAr, s && s.company, s && s.companyAr, p.role, t().roles[p.role]].join(" "); })].join(" ").toLowerCase();
+  function currentFrn() {
+    const q = state.q.trim().toLowerCase(), order = SECTORS.map(s => s[0]);
+    return state.frn.filter(x => (state.sector === "all" || x.sector === state.sector) && (!q || frnHay(x).includes(q)))
+      .sort((a, b) => (order.indexOf(a.sector) - order.indexOf(b.sector)) || f(a, "company").localeCompare(f(b, "company"), lang));
+  }
+  function renderFrn() {
+    if (!state.loaded) { $("fgrid").innerHTML = `<div class="empty">${esc(state.error || t().frnEmpty)}</div>`; return; }
+    const xs = currentFrn();
+    if (!xs.length) { $("fgrid").innerHTML = `<div class="empty">${esc(t().frnNone)}</div>`; return; }
+    $("fgrid").innerHTML = xs.map(x => {
+      const url = x.website ? (/^https?:/.test(x.website) ? x.website : "https://" + x.website) : "";
+      const eg = (x.egypt || []).map(p => `<li>${p.id && state.rows.some(r => r.id === p.id) ? `<button type="button" class="eglink" data-id="${esc(p.id)}">${esc(supName(p))}</button>` : `<span>${esc(supName(p))}</span>`}<span class="role">${esc(roleName(p.role))}</span></li>`).join("");
+      return `<article class="mcard"><div class="fhead"><h3>${esc(f(x, "company"))}</h3><span class="ctry">${esc(f(x, "country"))}</span></div>${ar() && x.companyAr && x.companyAr !== x.company ? `<div class="alt ltr">${esc(x.company)}</div>` : ""}<div><span class="chip">${esc(secName(x.sector))}</span> <span class="chip">${esc(catName(x.category))}</span></div><div class="proc">${esc(f(x, "products"))}</div>${url ? `<div><a class="sitebtn" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(t().site)} <span aria-hidden="true">↗</span></a></div>` : ""}${eg ? `<span class="k">${esc(t().egPartners)}</span><ul class="eglist">${eg}</ul>` : ""}</article>`;
+    }).join("");
+  }
+  function frnPrintDoc(all) {
+    const order = SECTORS.map(s => s[0]);
+    const xs = all ? state.frn.slice().sort((a, b) => (order.indexOf(a.sector) - order.indexOf(b.sector)) || f(a, "company").localeCompare(f(b, "company"), lang)) : currentFrn();
+    const d = new Date().toLocaleString(ar() ? "ar-EG" : "en-GB", { dateStyle: "long", timeStyle: "short", timeZone: "Africa/Cairo" });
+    const body = xs.map(x => `<tr><td><b>${esc(f(x, "company"))}</b><br><small>${esc(secName(x.sector))} · ${esc(catName(x.category))}</small></td><td>${esc(f(x, "country"))}</td><td>${esc(f(x, "products"))}${x.website ? `<br><span dir="ltr">${esc(x.website)}</span>` : ""}</td><td>${(x.egypt || []).map(p => esc(supName(p)) + " <small>(" + esc(roleName(p.role)) + ")</small>").join("<br>")}</td></tr>`).join("");
+    return `<!doctype html><html lang="${lang}" dir="${ar() ? "rtl" : "ltr"}"><head><meta charset="utf-8"><title>${esc(t().frnTitle)}</title><style>@page{size:A4 landscape;margin:12mm}body{font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;color:#16201e;font-size:12px;margin:0}h1{font-size:20px;margin:0 0 4px}.meta{color:#5b6a66;margin:0 0 10px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #c9d2cf;padding:6px;vertical-align:top;text-align:start}th{background:#e0f0ec}small{color:#5b6a66}tr{break-inside:avoid}.sign{margin-top:14px;border-top:1px solid #c9d2cf;padding-top:8px;font-size:13px}</style></head><body><h1>${esc(t().frnTitle)}</h1><p class="meta">${esc(t().prepared)} <b>${esc(t().signer)}</b> · ${esc(t().printed)}: ${esc(d)} · ${esc(t().frnCount)}: ${xs.length}</p><table><thead><tr><th>${esc(t().company)}</th><th>${esc(t().country)}</th><th>${esc(t().products)}</th><th>${esc(t().egPartners)}</th></tr></thead><tbody>${body}</tbody></table><p class="sign">${esc(t().prepared)} <b>${esc(t().signer)}</b></p><script>window.addEventListener("load",function(){setTimeout(function(){window.print()},300)});<\/script></body></html>`;
+  }
+
+  function matPrintDoc(all) {
+    const ms = all ? MATS : currentMats();
+    const d = new Date().toLocaleString(ar() ? "ar-EG" : "en-GB", { dateStyle: "long", timeStyle: "short", timeZone: "Africa/Cairo" });
+    const body = ms.map(m => `<tr><td><b>${esc(ar() ? m.ar : m.en)}</b><br><small>${esc(m.cats.map(catName).join(" · "))}</small></td><td>${esc(ar() ? m.pAr : m.pEn)}</td><td>${esc((ar() ? m.mAr : m.mEn).join("، "))}</td><td>${matCount(m)}</td></tr>`).join("");
+    return `<!doctype html><html lang="${lang}" dir="${ar() ? "rtl" : "ltr"}"><head><meta charset="utf-8"><title>${esc(t().matTitle)}</title><style>@page{size:A4 landscape;margin:12mm}body{font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;color:#16201e;font-size:12px;margin:0}h1{font-size:20px;margin:0 0 4px}.meta{color:#5b6a66;margin:0 0 10px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #c9d2cf;padding:6px;vertical-align:top;text-align:start}th{background:#e0f0ec}small{color:#5b6a66}tr{break-inside:avoid}.sign{margin-top:14px;border-top:1px solid #c9d2cf;padding-top:8px;font-size:13px}</style></head><body><h1>${esc(t().matTitle)}</h1><p class="meta">${esc(t().prepared)} <b>${esc(t().signer)}</b> · ${esc(t().printed)}: ${esc(d)}${!all && state.q ? " · «" + esc(state.q) + "»" : ""}</p><table><thead><tr><th>${esc(t().material)}</th><th>${esc(t().process)}</th><th>${esc(t().products)}</th><th>${esc(t().count)}</th></tr></thead><tbody>${body}</tbody></table><p class="sign">${esc(t().prepared)} <b>${esc(t().signer)}</b></p><script>window.addEventListener("load",function(){setTimeout(function(){window.print()},300)});<\/script></body></html>`;
+  }
+
+  function currentRows() {
+    const q = state.q.trim().toLowerCase();
+    return state.rows.filter(r =>
+      (state.sector === "all" || r.sector === state.sector) &&
+      (state.cat === "all" || r.category === state.cat) &&
+      (state.typ === "all" || r.type === state.typ) &&
+      (!state.hasPhone || (r.phones || []).some(Boolean)) &&
+      (!q || hay(r).includes(q)));
+  }
+
+  function printDoc(all) {
+    if (state.tab === "mat") return matPrintDoc(all);
+    if (state.tab === "frn") return frnPrintDoc(all);
+    const order = SECTORS.map(s => s[0]);
+    const rows = (all ? state.rows.slice() : currentRows()).sort((a, b) => (order.indexOf(a.sector) - order.indexOf(b.sector)) || catName(a.category).localeCompare(catName(b.category), lang) || f(a, "company").localeCompare(f(b, "company"), lang));
+    const d = new Date().toLocaleString(ar() ? "ar-EG" : "en-GB", { dateStyle: "long", timeStyle: "short", timeZone: "Africa/Cairo" });
+    const filters = all ? "" : [state.sector !== "all" ? secName(state.sector) : "", state.cat !== "all" ? catName(state.cat) : "", state.typ !== "all" ? typeName(state.typ) : "", state.q ? "«" + state.q + "»" : ""].filter(Boolean).join(" · ");
+    let lastCat = "";
+    const body = rows.map(r => {
+      const cat = r.sector + "|" + r.category;
+      const head = cat !== lastCat ? `<tr class="cat"><td colspan="5">${esc(catName(r.category))} — ${esc(secName(r.sector))}</td></tr>` : "";
+      lastCat = cat;
+      const br = (r.branches || []).filter(x => x && (x.address || x.city)).map(x => esc([f(x, "city"), f(x, "name"), f(x, "address"), x.phone].filter(Boolean).join(" – "))).join("<br>");
+      return head + `<tr><td><b>${esc(f(r, "company"))}</b><br><small>${esc(typeName(r.type))}</small><br><small>${esc(f(r, "items"))}</small>${(r.partners || []).length ? `<br><small>${esc((r.partners || []).join("، "))}</small>` : ""}</td><td>${esc(f(r, "contact"))}${r.email ? `<br><span dir="ltr">${esc(r.email)}</span>` : ""}</td><td dir="ltr">${(r.phones || []).map(esc).join("<br>") || "—"}<br><small>${esc(t().st[r.phoneStatus || "missing"])}</small></td><td>${esc(f(r, "address"))}${r.website ? `<br><span dir="ltr">${esc(r.website)}</span>` : ""}</td><td><small>${br}</small></td></tr>`;
+    }).join("");
+    return `<!doctype html><html lang="${lang}" dir="${ar() ? "rtl" : "ltr"}"><head><meta charset="utf-8"><title>${esc(t().title)}</title><style>@page{size:A4 landscape;margin:12mm}body{font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;color:#16201e;font-size:11px;margin:0}h1{font-size:20px;margin:0 0 4px}.meta{color:#5b6a66;margin:0 0 10px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #c9d2cf;padding:5px 6px;vertical-align:top;text-align:start}th{background:#e0f0ec}tr.cat td{background:#0d6b5f;color:#fff;font-weight:700;font-size:12px}small{color:#5b6a66}tr{break-inside:avoid}.sign{margin-top:14px;border-top:1px solid #c9d2cf;padding-top:8px;font-size:13px}</style></head><body><h1>${esc(t().title)}</h1><p class="meta">${esc(t().prepared)} <b>${esc(t().signer)}</b> · ${esc(t().printed)}: ${esc(d)} · ${esc(t().count)}: ${rows.length}${filters ? " · " + esc(filters) : ""}</p><table><thead><tr><th>${esc(t().company)}</th><th>${esc(t().contact)}</th><th>${esc(t().phone)}</th><th>${esc(t().address)}</th><th>${esc(t().branchesH)}</th></tr></thead><tbody>${body}</tbody></table><p class="sign">${esc(t().prepared)} <b>${esc(t().signer)}</b></p><script>window.addEventListener("load",function(){setTimeout(function(){window.print()},300)});<\/script></body></html>`;
+  }
+
+  function renderList() {
+    renderMats(); renderFrn();
+    if (state.error) { $("list").innerHTML = `<div class="empty">${esc(state.error)}</div>`; return; }
+    if (!state.loaded) { $("list").innerHTML = `<div class="empty">${esc(t().loading)}</div>`; return; }
+    const q = state.q.trim().toLowerCase();
+    const rows = state.rows.filter(r =>
+      (state.sector === "all" || r.sector === state.sector) &&
+      (state.cat === "all" || r.category === state.cat) &&
+      (state.typ === "all" || r.type === state.typ) &&
+      (!state.hasPhone || (r.phones || []).some(Boolean)) &&
+      (!q || hay(r).includes(q)));
+    if (!state.rows.length) { $("list").innerHTML = `<div class="empty">${esc(t().emptyDb)}</div>`; return; }
+    if (!rows.length) { $("list").innerHTML = `<div class="empty">${esc(t().none)}</div>`; return; }
+    const order = SECTORS.map(s => s[0]);
+    const groups = {};
+    rows.forEach(r => { const k = r.sector + "\u0000" + r.category; (groups[k] ||= []).push(r); });
+    const keys = Object.keys(groups).sort((a, b) => {
+      const [sa, ca] = a.split("\u0000"), [sb, cb] = b.split("\u0000");
+      return (order.indexOf(sa) - order.indexOf(sb)) || catName(ca).localeCompare(catName(cb), lang);
+    });
+    $("list").innerHTML = '<div style="display:grid;gap:22px">' + keys.map(k => {
+      const g = groups[k].sort((a, b) => f(a, "company").localeCompare(f(b, "company"), lang));
+      const mk = [...new Set(matsOf(g[0].category).flatMap(m => ar() ? m.mAr : m.mEn))].slice(0, 8);
+      return `<section class="group"><h2>${esc(catName(g[0].category))} <small>${esc(secName(g[0].sector))} · ${g.length.toLocaleString(ar() ? "ar-EG" : "en-GB")}</small></h2>${mk.length ? `<p class="makes"><b>${esc(t().makes)}</b> ${esc(mk.join(ar() ? "، " : ", "))}</p>` : ""}<div class="rows">${g.map(rowHtml).join("")}</div></section>`;
+    }).join("") + "</div>";
+  }
+
+  function renderAll() { applyStatic(); renderFresh(); renderStrip(); renderCats(); renderList(); }
+
+  $("langSeg").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b || b.dataset.l === lang) return;
+    lang = b.dataset.l;
+    try { localStorage.setItem("lang", lang); } catch (err) {}
+    renderAll();
+  });
+  $("sectorSeg").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    state.sector = b.dataset.v;
+    $("sectorSeg").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    renderCats(); renderList();
+  });
+  $("cat").addEventListener("change", e => { state.cat = e.target.value; renderList(); });
+  $("tabs").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b || b.dataset.tab === state.tab) return;
+    state.tab = b.dataset.tab; applyStatic(); renderCats(); renderList();
+  });
+  $("mgrid").addEventListener("click", e => {
+    const b = e.target.closest(".find"); if (!b) return;
+    const m = MATS[+b.dataset.m];
+    state.tab = "sup"; state.sector = "all"; state.typ = "all"; state.q = ""; $("q").value = ""; $("qClear").hidden = true;
+    applyStatic(); renderCats();
+    const have = m.cats.find(c => state.rows.some(r => r.category === c));
+    state.cat = have || "all"; $("cat").value = state.cat;
+    renderList(); $("tabs").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  $("typ").addEventListener("change", e => { state.typ = e.target.value; renderList(); });
+  $("fgrid").addEventListener("click", e => {
+    const b = e.target.closest(".eglink"); if (!b) return;
+    const s = state.rows.find(r => r.id === b.dataset.id); if (!s) return;
+    state.tab = "sup"; state.sector = "all"; state.cat = "all"; state.typ = "all"; state.q = s.company; $("q").value = s.company; $("qClear").hidden = false;
+    applyStatic(); renderCats(); renderList(); $("tabs").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  $("q").addEventListener("input", e => { state.q = e.target.value; $("qClear").hidden = !state.q; renderList(); });
+  $("qClear").addEventListener("click", () => { $("q").value = ""; state.q = ""; $("qClear").hidden = true; renderList(); $("q").focus(); });
+  document.addEventListener("keydown", e => { if (e.key === "/" && document.activeElement !== $("q")) { e.preventDefault(); $("q").focus(); } });
+  $("hasPhone").addEventListener("change", e => { state.hasPhone = e.target.checked; renderList(); });
+  $("list").addEventListener("click", async e => {
+    const b = e.target.closest(".copy"); if (!b) return;
+    try { await navigator.clipboard.writeText(b.dataset.copy); b.textContent = t().copied; }
+    catch (err) { const r = document.createRange(); r.selectNodeContents(b.previousElementSibling); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = t().selected; }
+    setTimeout(() => { b.textContent = t().copy; }, 1500);
+  });
+
+  renderAll();
+
+  (async () => {
+    const dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
+    if (!dl) return;
+    $("printGrp").hidden = false;
+    const doPrint = async (all) => {
+      $("printMsg").textContent = t().printing;
+      try {
+        await dl.save({ filename: (ar() ? "دليل-الموردين" : "egypt-suppliers") + (all ? "-all" : "-results") + ".html", data: printDoc(all) });
+        $("printMsg").textContent = t().printSaved;
+      } catch (err) {
+        $("printMsg").textContent = err && err.code === "declined" ? "" : t().printFail;
+      }
+    };
+    $("printAll").addEventListener("click", () => doPrint(true));
+    $("printBtn").addEventListener("click", () => doPrint(false));
+  })();
+
+  let live = false, snapOk = false;
+  const snapP = fetch("snapshot.json").then(r => r.ok ? r.json() : null).then(s => {
+    if (!s || live) return;
+    snapOk = true; state.snap = s.savedAt;
+    state.rows = (s.suppliers || []).filter(r => r.company);
+    state.frn = (s.foreign || []).filter(x => x.company);
+    state.meta = s.meta || null; state.loaded = true; state.error = "";
+    renderFresh(); renderStrip(); renderCats(); renderList();
+  }).catch(() => {});
+
+  (async () => {
+    const db = window.claude && window.claude.use ? await window.claude.use("db") : null;
+    if (!db) { await snapP; if (!snapOk) { state.error = t().signin; renderFresh(); renderList(); } return; }
+    db.collection("suppliers").onSnapshot(snap => {
+      const rows = snap.docs.map(d => ({ id: d.id, ...d.data() })).filter(r => r.company);
+      if (!rows.length && snapOk) return;
+      live = true; state.snap = ""; state.error = "";
+      state.rows = rows;
+      state.loaded = true;
+      renderFresh(); renderStrip(); renderCats(); renderList();
+    }, () => { if (!snapOk) { state.error = t().failed; renderFresh(); renderList(); } });
+    db.collection("foreign").onSnapshot(snap => {
+      const xs = snap.docs.map(d => ({ id: d.id, ...d.data() })).filter(x => x.company);
+      if (!xs.length && snapOk) return;
+      state.frn = xs;
+      renderStrip(); renderFrn();
+    }, () => {});
+    db.doc("meta/status").onSnapshot(s => { if (s.exists) { state.meta = s.data(); renderFresh(); } });
+  })();
+})();
+</script>
+
+</body>
+</html>

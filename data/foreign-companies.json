@@ -1,0 +1,958 @@
+[
+ {
+  "category": "Industrial automation & drives",
+  "company": "ABB",
+  "companyAr": "إيه بي بي",
+  "country": "Switzerland",
+  "countryAr": "سويسرا",
+  "egypt": [
+   {
+    "id": "advanced-systems-electrical",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Drives, motors, robots, low-voltage products",
+  "productsAr": "إنفرترات، مواتير، روبوتات، منتجات جهد منخفض",
+  "sector": "Machinery & Equipment",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.abb.com",
+  "id": "abb"
+ },
+ {
+  "category": "Plastic packaging",
+  "company": "ALPLA",
+  "companyAr": "ألبلا",
+  "country": "Austria",
+  "countryAr": "النمسا",
+  "egypt": [
+   {
+    "id": "alpla-egypt",
+    "role": "Subsidiary"
+   }
+  ],
+  "products": "Plastic bottles, preforms, closures, recycled PET",
+  "productsAr": "زجاجات بلاستيك، بريفورم، أغطية، PET معاد تدويره",
+  "sector": "Plastics Industry",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.alpla.com",
+  "id": "alpla"
+ },
+ {
+  "category": "Computers & IT distribution",
+  "company": "APC by Schneider Electric",
+  "companyAr": "APC من شنايدر إلكتريك",
+  "country": "USA / France",
+  "countryAr": "الولايات المتحدة / فرنسا",
+  "egypt": [
+   {
+    "id": "infinity-dist",
+    "role": "Distributor"
+   },
+   {
+    "id": "mas-misr",
+    "role": "Distributor"
+   },
+   {
+    "id": "metra-group",
+    "role": "Distributor"
+   },
+   {
+    "id": "silicon21",
+    "role": "Distributor"
+   }
+  ],
+  "products": "UPS, power distribution, data-center cooling and racks",
+  "productsAr": "أجهزة UPS، توزيع الطاقة، تبريد وراكات مراكز البيانات",
+  "sector": "Electronics & IT",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.apc.com",
+  "id": "apc"
+ },
+ {
+  "category": "Facility & MEP maintenance",
+  "company": "Apleona",
+  "companyAr": "أبليونا",
+  "country": "Germany",
+  "countryAr": "ألمانيا",
+  "egypt": [
+   {
+    "id": "apleona-misr",
+    "role": "Subsidiary"
+   }
+  ],
+  "products": "Facility management and technical building services",
+  "productsAr": "إدارة المرافق وخدمات المباني الفنية",
+  "sector": "Maintenance & Services",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.apleona.com",
+  "id": "apleona"
+ },
+ {
+  "category": "Compressors & air systems",
+  "company": "Atlas Copco",
+  "companyAr": "أطلس كوبكو",
+  "country": "Sweden",
+  "countryAr": "السويد",
+  "egypt": [
+   {
+    "id": "atlas-copco-egypt",
+    "role": "Subsidiary"
+   },
+   {
+    "id": "cairo-air-compressors",
+    "role": "Distributor"
+   },
+   {
+    "id": "canal-air-compressors",
+    "role": "Distributor"
+   },
+   {
+    "id": "cate",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Air compressors, vacuum, blowers, gas generators, service",
+  "productsAr": "ضواغط هواء، تفريغ، نافخات، مولدات غاز، صيانة",
+  "sector": "Maintenance & Services",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.atlascopco.com",
+  "id": "atlas-copco"
+ },
+ {
+  "category": "Resin & polymer distributors",
+  "company": "Borouge",
+  "companyAr": "بروج",
+  "country": "UAE",
+  "countryAr": "الإمارات",
+  "egypt": [
+   {
+    "id": "el-qadisiyah-plastics",
+    "role": "Distributor"
+   },
+   {
+    "id": "el-seif-plast",
+    "role": "Distributor"
+   },
+   {
+    "id": "feg",
+    "role": "Distributor"
+   },
+   {
+    "id": "jandalah",
+    "role": "Distributor"
+   },
+   {
+    "id": "ph-plast",
+    "role": "Distributor"
+   },
+   {
+    "id": "tobacts",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Polyethylene and polypropylene resins",
+  "productsAr": "بولي إيثيلين وبولي بروبيلين",
+  "sector": "Plastics Industry",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.borouge.com",
+  "id": "borouge"
+ },
+ {
+  "category": "Welding & cutting equipment",
+  "company": "Bosch",
+  "companyAr": "بوش",
+  "country": "Germany",
+  "countryAr": "ألمانيا",
+  "egypt": [
+   {
+    "id": "unibar",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Power tools and accessories",
+  "productsAr": "عدد كهربائية وملحقاتها",
+  "sector": "Machinery & Equipment",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.bosch.com",
+  "id": "bosch"
+ },
+ {
+  "category": "Computers & IT distribution",
+  "company": "Canon",
+  "companyAr": "كانون",
+  "country": "Japan",
+  "countryAr": "اليابان",
+  "egypt": [
+   {
+    "id": "mas-misr",
+    "role": "Distributor"
+   },
+   {
+    "id": "silicon21",
+    "role": "Service partner"
+   }
+  ],
+  "products": "Printers, cameras, scanners, office imaging",
+  "productsAr": "طابعات، كاميرات، ماسحات ضوئية، معدات تصوير مكتبية",
+  "sector": "Electronics & IT",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.canon.com",
+  "id": "canon"
+ },
+ {
+  "category": "Heavy equipment, engines & generators",
+  "company": "Caterpillar",
+  "companyAr": "كاتربيلر",
+  "country": "USA",
+  "countryAr": "الولايات المتحدة",
+  "egypt": [
+   {
+    "id": "mantrac-egypt",
+    "role": "Official agent"
+   },
+   {
+    "id": "alex-mechanical-maintenance",
+    "role": "Service partner"
+   }
+  ],
+  "products": "Earthmoving equipment, engines, generators, parts & service",
+  "productsAr": "معدات حفر وتحميل، محركات، مولدات، قطع غيار وصيانة",
+  "sector": "Maintenance & Services",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.cat.com",
+  "id": "caterpillar"
+ },
+ {
+  "category": "Industrial automation & drives",
+  "company": "Danfoss (incl. Vacon)",
+  "companyAr": "دانفوس (وفاكون)",
+  "country": "Denmark",
+  "countryAr": "الدنمارك",
+  "egypt": [
+   {
+    "id": "advanced-systems-electrical",
+    "role": "Distributor"
+   }
+  ],
+  "products": "VLT and Vacon AC drives, valves, refrigeration controls",
+  "productsAr": "إنفرترات VLT وفاكون، محابس، تحكم تبريد",
+  "sector": "Machinery & Equipment",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.danfoss.com",
+  "id": "danfoss"
+ },
+ {
+  "category": "MDF, particleboard & panels",
+  "company": "Dieffenbacher",
+  "companyAr": "ديفنباخر",
+  "country": "Germany",
+  "countryAr": "ألمانيا",
+  "egypt": [
+   {
+    "id": "nile-wood",
+    "role": "Equipment customer"
+   }
+  ],
+  "products": "MDF and particleboard production lines (continuous presses)",
+  "productsAr": "خطوط إنتاج MDF والخشب المضغوط (مكابس مستمرة)",
+  "sector": "Wood & Panels",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.dieffenbacher.com",
+  "id": "dieffenbacher"
+ },
+ {
+  "category": "Machine tools & CNC",
+  "company": "DMG MORI",
+  "companyAr": "دي إم جي موري",
+  "country": "Germany / Japan",
+  "countryAr": "ألمانيا / اليابان",
+  "egypt": [
+   {
+    "id": "dmg-mori-gemas",
+    "role": "Joint venture"
+   }
+  ],
+  "products": "CNC lathes and machining centres",
+  "productsAr": "مخارط ومراكز تشغيل CNC",
+  "sector": "Machinery & Equipment",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.dmgmori.com",
+  "id": "dmg-mori"
+ },
+ {
+  "category": "Construction & earthmoving equipment",
+  "company": "Doosan",
+  "companyAr": "دوسان",
+  "country": "South Korea",
+  "countryAr": "كوريا الجنوبية",
+  "egypt": [
+   {
+    "id": "alexandria-equipment",
+    "role": "Dealer"
+   }
+  ],
+  "products": "Excavators, loaders, generators",
+  "productsAr": "حفارات، لوادر، مولدات",
+  "sector": "Machinery & Equipment",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.doosan.com",
+  "id": "doosan"
+ },
+ {
+  "category": "Ceramics, porcelain & sanitary ware",
+  "company": "Duravit",
+  "companyAr": "ديورافيت",
+  "country": "Germany",
+  "countryAr": "ألمانيا",
+  "egypt": [
+   {
+    "id": "royal-co",
+    "role": "Official agent"
+   }
+  ],
+  "products": "Sanitary ware, bathroom furniture, fittings",
+  "productsAr": "أدوات صحية، أثاث حمامات، خلاطات",
+  "sector": "Construction & Building",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.duravit.com",
+  "id": "duravit"
+ },
+ {
+  "category": "Home appliances & TVs",
+  "company": "Electrolux Group",
+  "companyAr": "مجموعة إلكترولوكس",
+  "country": "Sweden",
+  "countryAr": "السويد",
+  "egypt": [
+   {
+    "id": "olympic-group",
+    "role": "Subsidiary"
+   }
+  ],
+  "products": "Washing machines, fridges, cookers, water heaters",
+  "productsAr": "غسالات، ثلاجات، بوتاجازات، سخانات",
+  "sector": "Electronics & IT",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.electroluxgroup.com",
+  "id": "electrolux"
+ },
+ {
+  "category": "Resin & polymer distributors",
+  "company": "ExxonMobil Chemical",
+  "companyAr": "إكسون موبيل للكيماويات",
+  "country": "USA",
+  "countryAr": "الولايات المتحدة",
+  "egypt": [
+   {
+    "id": "el-seif-plast",
+    "role": "Distributor"
+   },
+   {
+    "id": "hga-plast",
+    "role": "Distributor"
+   },
+   {
+    "id": "jandalah",
+    "role": "Distributor"
+   },
+   {
+    "id": "ph-plast",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Polyethylene, polypropylene, specialty elastomers",
+  "productsAr": "بولي إيثيلين، بولي بروبيلين، مطاط خاص",
+  "sector": "Plastics Industry",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.exxonmobilchemical.com",
+  "id": "exxonmobil-chemical"
+ },
+ {
+  "category": "Forklifts & material handling",
+  "company": "Genie (Terex)",
+  "companyAr": "جيني (تيركس)",
+  "country": "USA",
+  "countryAr": "الولايات المتحدة",
+  "egypt": [
+   {
+    "id": "modern-building-masters",
+    "role": "Official agent"
+   }
+  ],
+  "products": "Aerial work platforms, scissor and boom lifts",
+  "productsAr": "منصات رفع، سيزر ليفت وبوم ليفت",
+  "sector": "Machinery & Equipment",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.genielift.com",
+  "id": "genie"
+ },
+ {
+  "category": "Glass processing & façades",
+  "company": "Glaston",
+  "companyAr": "جلاستون",
+  "country": "Finland",
+  "countryAr": "فنلندا",
+  "egypt": [
+   {
+    "id": "dr-greiche-glass",
+    "role": "Equipment customer"
+   }
+  ],
+  "products": "Glass tempering, laminating and bending machines",
+  "productsAr": "ماكينات تقسية وتصفيح وثني الزجاج",
+  "sector": "Glass Industry",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.glaston.net",
+  "id": "glaston"
+ },
+ {
+  "category": "Cement",
+  "company": "Heidelberg Materials",
+  "companyAr": "هايدلبرج للمواد",
+  "country": "Germany",
+  "countryAr": "ألمانيا",
+  "egypt": [
+   {
+    "id": "suez-cement",
+    "role": "Subsidiary"
+   }
+  ],
+  "products": "Cement, aggregates, ready-mix concrete",
+  "productsAr": "أسمنت، ركام، خرسانة جاهزة",
+  "sector": "Construction & Building",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.heidelbergmaterials.com",
+  "id": "heidelberg-materials"
+ },
+ {
+  "category": "Furniture & kitchen fittings",
+  "company": "Hettich",
+  "companyAr": "هيتيش",
+  "country": "Germany",
+  "countryAr": "ألمانيا",
+  "egypt": [
+   {
+    "id": "hanimex",
+    "role": "Official agent"
+   }
+  ],
+  "products": "Hinges, drawer systems, sliding-door fittings",
+  "productsAr": "مفصلات، أنظمة أدراج، إكسسوارات أبواب منزلقة",
+  "sector": "Hardware & Accessories",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.hettich.com",
+  "id": "hettich"
+ },
+ {
+  "category": "Forklifts & material handling",
+  "company": "HOPPECKE",
+  "companyAr": "هوبيكه",
+  "country": "Germany",
+  "countryAr": "ألمانيا",
+  "egypt": [
+   {
+    "id": "comet-hoppecke",
+    "role": "Official agent"
+   }
+  ],
+  "products": "Traction and lithium batteries, chargers",
+  "productsAr": "بطاريات جر وليثيوم، شواحن",
+  "sector": "Machinery & Equipment",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.hoppecke.com",
+  "id": "hoppecke"
+ },
+ {
+  "category": "Industrial automation & drives",
+  "company": "ifm electronic",
+  "companyAr": "آي إف إم إلكترونيك",
+  "country": "Germany",
+  "countryAr": "ألمانيا",
+  "egypt": [
+   {
+    "id": "advanced-systems-electrical",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Sensors, IO-Link, condition monitoring",
+  "productsAr": "حساسات، IO-Link، مراقبة حالة المعدات",
+  "sector": "Machinery & Equipment",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.ifm.com",
+  "id": "ifm"
+ },
+ {
+  "category": "Resin & polymer distributors",
+  "company": "INEOS",
+  "companyAr": "إينيوس",
+  "country": "UK",
+  "countryAr": "المملكة المتحدة",
+  "egypt": [
+   {
+    "id": "tobacts",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Polyolefins and petrochemicals",
+  "productsAr": "بولي أوليفينات وبتروكيماويات",
+  "sector": "Plastics Industry",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.ineos.com",
+  "id": "ineos"
+ },
+ {
+  "category": "Paints & coatings",
+  "company": "Jotun",
+  "companyAr": "جوتن",
+  "country": "Norway",
+  "countryAr": "النرويج",
+  "egypt": [
+   {
+    "id": "jotun-egypt",
+    "role": "Joint venture"
+   },
+   {
+    "id": "penguin-intl",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Decorative, protective, marine and powder coatings",
+  "productsAr": "دهانات ديكور وحماية وبحرية ودهانات بودرة",
+  "sector": "Construction & Building",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.jotun.com",
+  "id": "jotun"
+ },
+ {
+  "category": "Industrial minerals",
+  "company": "Knauf",
+  "companyAr": "كناوف",
+  "country": "Germany",
+  "countryAr": "ألمانيا",
+  "egypt": [
+   {
+    "id": "knauf-egypt",
+    "role": "Subsidiary"
+   }
+  ],
+  "products": "Gypsum board, plasters, insulation, dry-lining systems",
+  "productsAr": "ألواح جبس، محارة جبسية، عوازل، أنظمة جدران جافة",
+  "sector": "Raw Materials",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.knauf.com",
+  "id": "knauf"
+ },
+ {
+  "category": "Construction & earthmoving equipment",
+  "company": "Komatsu",
+  "companyAr": "كوماتسو",
+  "country": "Japan",
+  "countryAr": "اليابان",
+  "egypt": [
+   {
+    "id": "alexandria-equipment",
+    "role": "Dealer"
+   },
+   {
+    "id": "alex-mechanical-maintenance",
+    "role": "Service partner"
+   }
+  ],
+  "products": "Excavators, loaders, bulldozers, forklifts",
+  "productsAr": "حفارات، لوادر، بلدوزرات، كلاركات",
+  "sector": "Machinery & Equipment",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.komatsu.com",
+  "id": "komatsu"
+ },
+ {
+  "category": "Computers & IT distribution",
+  "company": "Lenovo",
+  "companyAr": "لينوفو",
+  "country": "China",
+  "countryAr": "الصين",
+  "egypt": [
+   {
+    "id": "lenovo-egypt",
+    "role": "Subsidiary"
+   },
+   {
+    "id": "redington-egypt",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Laptops, desktops, servers, tablets",
+  "productsAr": "لابتوب، أجهزة مكتبية، سيرفرات، تابلت",
+  "sector": "Electronics & IT",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.lenovo.com",
+  "id": "lenovo"
+ },
+ {
+  "category": "Mobiles & consumer electronics brands",
+  "company": "LG Electronics",
+  "companyAr": "إل جي للإلكترونيات",
+  "country": "South Korea",
+  "countryAr": "كوريا الجنوبية",
+  "egypt": [
+   {
+    "id": "lg-egypt",
+    "role": "Subsidiary"
+   }
+  ],
+  "products": "TVs, home appliances, air conditioners",
+  "productsAr": "تلفزيونات، أجهزة منزلية، تكييفات",
+  "sector": "Electronics & IT",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.lg.com",
+  "id": "lg"
+ },
+ {
+  "category": "Heavy equipment, engines & generators",
+  "company": "MAN Truck & Bus",
+  "companyAr": "مان للشاحنات والحافلات",
+  "country": "Germany",
+  "countryAr": "ألمانيا",
+  "egypt": [
+   {
+    "id": "alex-mechanical-maintenance",
+    "role": "Service partner"
+   }
+  ],
+  "products": "Trucks, buses, diesel engines",
+  "productsAr": "شاحنات، حافلات، محركات ديزل",
+  "sector": "Maintenance & Services",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.man.eu",
+  "id": "man"
+ },
+ {
+  "category": "Industrial chemicals",
+  "company": "Methanex",
+  "companyAr": "ميثانكس",
+  "country": "Canada",
+  "countryAr": "كندا",
+  "egypt": [
+   {
+    "id": "methanex-egypt",
+    "role": "Joint venture"
+   }
+  ],
+  "products": "Methanol",
+  "productsAr": "الميثانول",
+  "sector": "Raw Materials",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.methanex.com",
+  "id": "methanex"
+ },
+ {
+  "category": "Industrial automation & drives",
+  "company": "Omron",
+  "companyAr": "أومرون",
+  "country": "Japan",
+  "countryAr": "اليابان",
+  "egypt": [
+   {
+    "id": "advanced-systems-electrical",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Sensors, PLCs, relays, safety components",
+  "productsAr": "حساسات، PLC، ريليهات، مكونات أمان",
+  "sector": "Machinery & Equipment",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.omron.com",
+  "id": "omron"
+ },
+ {
+  "category": "Tires & tubes",
+  "company": "Pirelli",
+  "companyAr": "بيريللي",
+  "country": "Italy",
+  "countryAr": "إيطاليا",
+  "egypt": [
+   {
+    "id": "alexandria-equipment",
+    "role": "Dealer"
+   }
+  ],
+  "products": "Car, truck and industrial tires",
+  "productsAr": "إطارات سيارات ونقل ومعدات",
+  "sector": "Rubber Industry",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.pirelli.com",
+  "id": "pirelli"
+ },
+ {
+  "category": "Industrial automation & drives",
+  "company": "Rockwell Automation (Allen-Bradley)",
+  "companyAr": "روكويل أوتوميشن (ألن برادلي)",
+  "country": "USA",
+  "countryAr": "الولايات المتحدة",
+  "egypt": [
+   {
+    "id": "advanced-systems-electrical",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Allen-Bradley PLCs, HMIs, drives",
+  "productsAr": "PLC وشاشات HMI وإنفرترات ألن برادلي",
+  "sector": "Machinery & Equipment",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.rockwellautomation.com",
+  "id": "rockwell"
+ },
+ {
+  "category": "Resin & polymer distributors",
+  "company": "SABIC",
+  "companyAr": "سابك",
+  "country": "Saudi Arabia",
+  "countryAr": "السعودية",
+  "egypt": [
+   {
+    "id": "hga-plast",
+    "role": "Distributor"
+   },
+   {
+    "id": "tobacts",
+    "role": "Distributor"
+   },
+   {
+    "id": "first-square-plastics",
+    "role": "Equipment customer"
+   }
+  ],
+  "products": "PE, PP, PC, PVC and engineering plastics",
+  "productsAr": "بولي إيثيلين، بولي بروبيلين، بولي كربونات، PVC وبلاستيك هندسي",
+  "sector": "Plastics Industry",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.sabic.com",
+  "id": "sabic"
+ },
+ {
+  "category": "Float & flat glass",
+  "company": "Saint-Gobain",
+  "companyAr": "سان جوبان",
+  "country": "France",
+  "countryAr": "فرنسا",
+  "egypt": [
+   {
+    "id": "saint-gobain-glass-egypt",
+    "role": "Subsidiary"
+   }
+  ],
+  "products": "Float glass, coated and processed glass, building materials",
+  "productsAr": "زجاج فلوت، زجاج مطلي ومشغول، مواد بناء",
+  "sector": "Glass Industry",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.saint-gobain.com",
+  "id": "saint-gobain"
+ },
+ {
+  "category": "Mobiles & consumer electronics brands",
+  "company": "Samsung Electronics",
+  "companyAr": "سامسونج للإلكترونيات",
+  "country": "South Korea",
+  "countryAr": "كوريا الجنوبية",
+  "egypt": [
+   {
+    "id": "samsung-egypt",
+    "role": "Subsidiary"
+   }
+  ],
+  "products": "Smartphones, TVs, home appliances, displays",
+  "productsAr": "هواتف ذكية، تلفزيونات، أجهزة منزلية، شاشات",
+  "sector": "Electronics & IT",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.samsung.com",
+  "id": "samsung"
+ },
+ {
+  "category": "Construction & earthmoving equipment",
+  "company": "SANY",
+  "companyAr": "ساني",
+  "country": "China",
+  "countryAr": "الصين",
+  "egypt": [
+   {
+    "id": "alexandria-equipment",
+    "role": "Dealer"
+   }
+  ],
+  "products": "Excavators, cranes, concrete pumps, port machinery",
+  "productsAr": "حفارات، أوناش، مضخات خرسانة، معدات موانئ",
+  "sector": "Machinery & Equipment",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.sanyglobal.com",
+  "id": "sany"
+ },
+ {
+  "category": "Cables & electrical",
+  "company": "Schneider Electric",
+  "companyAr": "شنايدر إلكتريك",
+  "country": "France",
+  "countryAr": "فرنسا",
+  "egypt": [
+   {
+    "id": "el-nasera",
+    "role": "Distributor"
+   },
+   {
+    "id": "gila",
+    "role": "Distributor"
+   },
+   {
+    "id": "mas-electric",
+    "role": "Distributor"
+   },
+   {
+    "id": "salem-electrical",
+    "role": "Distributor"
+   },
+   {
+    "id": "advanced-systems-electrical",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Switchgear, breakers, wiring devices, automation, drives, UPS",
+  "productsAr": "لوحات وقواطع كهربائية، مفاتيح وأفياش، أتمتة، إنفرترات، UPS",
+  "sector": "Construction & Building",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.se.com",
+  "id": "schneider-electric"
+ },
+ {
+  "category": "Industrial automation & drives",
+  "company": "Siemens",
+  "companyAr": "سيمنس",
+  "country": "Germany",
+  "countryAr": "ألمانيا",
+  "egypt": [
+   {
+    "id": "advanced-systems-electrical",
+    "role": "Distributor"
+   }
+  ],
+  "products": "PLCs, drives, motors, switchgear, industrial software",
+  "productsAr": "PLC، إنفرترات، مواتير، لوحات توزيع، برمجيات صناعية",
+  "sector": "Machinery & Equipment",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.siemens.com",
+  "id": "siemens"
+ },
+ {
+  "category": "Construction chemicals & insulation",
+  "company": "Sika",
+  "companyAr": "سيكا",
+  "country": "Switzerland",
+  "countryAr": "سويسرا",
+  "egypt": [
+   {
+    "id": "sika-egypt",
+    "role": "Subsidiary"
+   },
+   {
+    "id": "bonian",
+    "role": "Distributor"
+   },
+   {
+    "id": "penguin-intl",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Concrete admixtures, waterproofing, sealants, adhesives, flooring, repair mortars",
+  "productsAr": "إضافات الخرسانة، العزل المائي، مواد الحشو، اللواصق، الأرضيات، مونة الإصلاح",
+  "sector": "Construction & Building",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.sika.com",
+  "id": "sika"
+ },
+ {
+  "category": "Electronic components & connectors",
+  "company": "TE Connectivity",
+  "companyAr": "تي إي كونيكتيفيتي",
+  "country": "Switzerland",
+  "countryAr": "سويسرا",
+  "egypt": [
+   {
+    "id": "aees",
+    "role": "Distributor"
+   },
+   {
+    "id": "el-massala",
+    "role": "Distributor"
+   },
+   {
+    "id": "philipco",
+    "role": "Distributor"
+   }
+  ],
+  "products": "Connectors, terminals, sensors, relays, heat-shrink",
+  "productsAr": "موصلات، أطراف توصيل، حساسات، ريليهات، أنابيب انكماش حراري",
+  "sector": "Raw Materials",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.te.com",
+  "id": "te-connectivity"
+ },
+ {
+  "category": "Heavy equipment, engines & generators",
+  "company": "Volvo Group",
+  "companyAr": "مجموعة فولفو",
+  "country": "Sweden",
+  "countryAr": "السويد",
+  "egypt": [
+   {
+    "id": "alex-mechanical-maintenance",
+    "role": "Service partner"
+   }
+  ],
+  "products": "Trucks, construction equipment, engines",
+  "productsAr": "شاحنات، معدات إنشاءات، محركات",
+  "sector": "Maintenance & Services",
+  "source": "Egyptian partner relationships recorded in the supplier directory; company website",
+  "verified": "2026-10-25",
+  "website": "https://www.volvogroup.com",
+  "id": "volvo"
+ }
+]
